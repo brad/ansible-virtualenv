@@ -1,5 +1,12 @@
 ---
 - hosts: localhost
   remote_user: root
+
+  vars:
+    virtualenv_version: "1.11.2"
+    virtualenv_prefix: "virtualenv-{{ virtualenv_version }}"
+    virtualenv_tarball: "{{ virtualenv_prefix }}.tar.gz"
+    virtualenv_path: "/usr/local"
+
   tasks:
-    - include: 'example_playbook.yml'
+    - include: '../virtualenv/tasks/main.yml'
