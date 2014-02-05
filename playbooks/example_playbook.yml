@@ -1,0 +1,16 @@
+---
+# Example playbook that uses nodejs tasks for installing Node.js from source.
+
+- hosts: all
+  sudo: true
+  user: username
+
+  vars:
+    virtualenv_version: "1.11.2"
+    virtualenv_prefix: "virtualenv-{{ virtualenv_version }}"
+    virtualenv_tarball: "{{ virtualenv_prefix }}.tar.gz"
+    virtualenv_path: "/usr/local"
+
+  tasks:
+    # Install virtualenv
+    - include: ../virtualenv/tasks/main.yml

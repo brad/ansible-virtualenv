@@ -1,0 +1,28 @@
+---
+# File: virtualenv.yml
+# Part: virtualenv
+#
+# Description: Installs virtualenv from source
+#
+# Parameters - Must be defined in playbook:
+#   - virtualenv_prefix = The prefix
+#   - virtualenv_tarball = The tarball filename pypi.python.org
+#   - virtualenv_version = The wanted version of virtualenv to be installed
+#   - virtualenv_path = The virtualenv path
+
+- name: virtualenv | Checking installed version of virtualenv
+  shell: /usr/bin/test "$(virtualenv --version 2> /dev/null)" = {{ virtualenv_version }}
+  register: wanted_version_installed
+  ignore_errors: True
+
+- name: virtualenv | Fetching virtualenv source
+  action: get_url url=https://pypi.python.org/packages/source/v/virtualenv/{{ virtualenv_tarball }} dest=/tmp/
+  when: wanted_version_installed.rc == 1
+
+- name: virtualenv | Unpack virtualenv tarball
+  command: tar zxf {{ virtualenv_tarball }} chdir=/tmp
+  when: wanted_version_installed.rc == 1
+
+- name: virtualenv | Install
+  command: /usr/bin/python setup.py install --prefix={{ virtualenv_path }} chdir=/tmp/{{ virtualenv_prefix }}
+  when: wanted_version_installed.rc == 1
