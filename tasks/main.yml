@@ -11,9 +11,10 @@
 #   - virtualenv_path = The virtualenv path
 
 - name: virtualenv | Checking installed version of virtualenv
-  shell: /usr/bin/test "$(virtualenv --version 2> /dev/null)" = {{ virtualenv_version }}
+  shell: /usr/bin/test "$({{ virtualenv_path }}/bin/virtualenv --version 2> /dev/null)" = {{ virtualenv_version }}
   register: wanted_version_installed
   ignore_errors: True
+  changed_when: "wanted_version_installed.rc == 1"
 
 - name: virtualenv | Fetching virtualenv source
   action: get_url url=https://pypi.python.org/packages/source/v/virtualenv/{{ virtualenv_tarball }} dest=/tmp/

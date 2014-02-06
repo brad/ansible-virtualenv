@@ -1,0 +1,4 @@
+---
+
+virtualenv_prefix: "virtualenv-{{ virtualenv_version }}"
+virtualenv_tarball: "{{ virtualenv_prefix }}.tar.gz"

@@ -1,15 +1,12 @@
 ---
 - hosts: localhost
   remote_user: root
-
-  vars:
-    virtualenv_version: "1.11.2"
-    virtualenv_prefix: "virtualenv-{{ virtualenv_version }}"
-    virtualenv_tarball: "{{ virtualenv_prefix }}.tar.gz"
-    virtualenv_path: "/usr/local"
+  vars_files:
+    - ../defaults/main.yml
+    - ../vars/main.yml
 
   tasks:
-    - include: '../virtualenv/tasks/main.yml'
+    - include: '../tasks/main.yml'
 
     - name: Verify the version of virtualenv we want is installed
       shell: /usr/bin/test "$({{ virtualenv_path }}/bin/virtualenv --version 2> /dev/null)" = {{ virtualenv_version }}
