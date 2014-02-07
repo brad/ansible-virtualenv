@@ -1,4 +1,4 @@
-Virtualenv [![Build Status](https://travis-ci.org/brad/virtualenv.png?branch=master)](https://travis-ci.org/brad/virtualenv)
+Virtualenv [![Build Status](https://travis-ci.org/brad/ansible-virtualenv.png?branch=master)](https://travis-ci.org/brad/ansible-virtualenv)
 ==========
 
 Ansible role to install virtualenv, for distributions that don't have a pip package
