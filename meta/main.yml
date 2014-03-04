@@ -10,14 +10,11 @@ galaxy_info:
   # platform on this list, let us know and we'll get it added!
   #
   platforms:
-  - name: CentOS
+  - name: EL
     versions:
-    - 6.5
-  #- name: EL
-  #  versions:
   #  - all
   #  - 5
-  #  - 6
+    - 6
   #- name: GenericUNIX
   #  versions:
   #  - all
