@@ -6,23 +6,5 @@
   ignore_errors: True
   changed_when: "wanted_version_installed.rc == 1"
 
-- name: virtualenv | Fetching virtualenv source
-  action: get_url url={{ base_url }}{{ virtualenv_tarball }} dest=/tmp/
-  when: wanted_version_installed.rc == 1
-
-# Check GPG signature
-- action: get_url url={{ base_url }}{{ virtualenv_tarball }}.asc dest=/tmp/
-  when: wanted_version_installed.rc == 1
-- command: gpg --keyserver pgp.mit.edu --recv-keys 3372DCFA
-  when: wanted_version_installed.rc == 1
-- name: virtualenv | Check GPG signature
-  command: gpg --verify /tmp/{{ virtualenv_tarball }}.asc /tmp/{{ virtualenv_tarball }}
-  when: wanted_version_installed.rc == 1
-
-- name: virtualenv | Unpack virtualenv tarball
-  command: tar zxf {{ virtualenv_tarball }} chdir=/tmp
-  when: wanted_version_installed.rc == 1
-
-- name: virtualenv | Install
-  command: /usr/bin/python setup.py install --prefix={{ virtualenv_path }} chdir=/tmp/{{ virtualenv_prefix }}
+- include: install.yml
   when: wanted_version_installed.rc == 1

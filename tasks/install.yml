@@ -1,0 +1,16 @@
+---
+
+- name: virtualenv | Fetching virtualenv source
+  action: get_url url={{ base_url }}{{ virtualenv_tarball }} dest=/tmp/
+
+# Check GPG signature
+- action: get_url url={{ base_url }}{{ virtualenv_tarball }}.asc dest=/tmp/
+- command: gpg --keyserver pgp.mit.edu --recv-keys 3372DCFA
+- name: virtualenv | Check GPG signature
+  command: gpg --verify /tmp/{{ virtualenv_tarball }}.asc /tmp/{{ virtualenv_tarball }}
+
+- name: virtualenv | Unpack virtualenv tarball
+  command: tar zxf {{ virtualenv_tarball }} chdir=/tmp
+
+- name: virtualenv | Install
+  command: /usr/bin/python setup.py install --prefix={{ virtualenv_path }} chdir=/tmp/{{ virtualenv_prefix }}
